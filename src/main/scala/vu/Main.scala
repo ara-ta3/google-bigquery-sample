@@ -1,5 +1,0 @@
-package vu
-
-class Main {
-
-}
