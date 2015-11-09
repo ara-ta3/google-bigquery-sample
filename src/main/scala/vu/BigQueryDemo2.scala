@@ -2,8 +2,7 @@ package vu
 
 import bigquery4s.BigQuery
 
-object BigQueryDemo {
-
+object BigQueryDemo2 {
   val bq = BigQuery.fromServiceAccount(
     "foo@developer.gserviceaccount.com",
     "/path/to/bar.p12"
@@ -12,11 +11,10 @@ object BigQueryDemo {
   val projectId = "mysamplebqproject"
 
   def main(args: Array[String]) {
-    val sql = "SELECT *  FROM [publicdata:samples.wikipedia] limit 10"
+    val sql = "SELECT created FROM [dummy.foo] LIMIT 10"
     val jobId = bq.startQuery(projectId, sql)
     val result = bq.await(jobId)
-    bq.getRows(result).foreach(println)
+    bq.getRows(result).foreach(r => println(r.cells.head.value.getOrElse("")))
   }
 
 }
-
